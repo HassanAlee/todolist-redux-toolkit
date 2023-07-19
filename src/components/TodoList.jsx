@@ -6,8 +6,8 @@ const TodoList = () => {
   return (
     <ul className="list-group my-5">
       <h3 className="text-capitalize text-center">todo list</h3>
-      {todos.map((todo) => {
-        return <TodoItem key={todo.id} {...todo} />;
+      {todos.map((item) => {
+        return <TodoItem key={item.id} {...item} />;
       })}
       <button
         type="btn"
