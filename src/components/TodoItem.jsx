@@ -1,13 +1,13 @@
 import React from "react";
 import { MdEdit } from "react-icons/md";
 import { FaTrash } from "react-icons/fa";
-const TodoItem = () => {
+const TodoItem = ({ id, text }) => {
   return (
     <li
       className="list-group-item text-capitalize d-flex
     justify-content-between my-2"
     >
-      <h6>item here</h6>
+      <h6>{text}</h6>
       <div className="todo-icon">
         <span className="mx-2 text-success">
           <MdEdit />
