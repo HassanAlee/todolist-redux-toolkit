@@ -3,9 +3,9 @@ import { BsBookmarkPlusFill } from "react-icons/bs";
 import { v4 as uuidv4 } from "uuid";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { userInput, addTodo } from "../features/todo/todoSlice";
+import { userInput, addTodo, updateTodo } from "../features/todo/todoSlice";
 const TodoInput = () => {
-  const { text, isEditing } = useSelector((state) => state.todo);
+  const { text, isEditing, singleTodo } = useSelector((state) => state.todo);
   const dispatch = useDispatch();
   return (
     <>
@@ -34,7 +34,12 @@ const TodoInput = () => {
             className="btn text-capitalize  btn-block btn-primary"
             onClick={(e) => {
               e.preventDefault();
-              dispatch(addTodo({ id: uuidv4(), text: text }));
+              if (!isEditing) {
+                dispatch(addTodo({ id: uuidv4(), text: text }));
+              } else {
+                console.log("this will edit the todo");
+                dispatch(updateTodo({ id: singleTodo.id, text: text }));
+              }
             }}
           >
             {isEditing ? "edit" : "add item"}

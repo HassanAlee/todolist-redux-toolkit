@@ -47,7 +47,28 @@ const todoSlice = createSlice({
       state.text = state.singleTodo.text;
       state.isEditing = true;
     },
+    updateTodo: (state, action) => {
+      state.todos = state.todos.map((item) => {
+        if (item.id == action.payload.id) {
+          return action.payload;
+        }
+        return item;
+      });
+      state.isEditing = false;
+      state.singleTodo = {};
+      state.text = "";
+    },
+    clearTodos: (state, action) => {
+      state.todos = [];
+    },
   },
 });
-export const { userInput, addTodo, removeTodo, editTodo } = todoSlice.actions;
+export const {
+  userInput,
+  addTodo,
+  removeTodo,
+  editTodo,
+  updateTodo,
+  clearTodos,
+} = todoSlice.actions;
 export default todoSlice.reducer;
