@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { userInput, addTodo } from "../features/todo/todoSlice";
 const TodoInput = () => {
-  const { text } = useSelector((state) => state.todo);
+  const { text, isEditing } = useSelector((state) => state.todo);
   const dispatch = useDispatch();
   return (
     <>
@@ -37,7 +37,7 @@ const TodoInput = () => {
               dispatch(addTodo({ id: uuidv4(), text: text }));
             }}
           >
-            add item
+            {isEditing ? "edit" : "add item"}
           </button>
         </form>
       </div>

@@ -2,22 +2,24 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   text: "",
   todos: [
-    {
-      id: 1,
-      text: "do homework",
-    },
-    {
-      id: 2,
-      text: "learn something new",
-    },
-    {
-      id: 3,
-      text: "do code",
-    },
+    // {
+    //   id: 1,
+    //   text: "do homework",
+    // },
+    // {
+    //   id: 2,
+    //   text: "learn something new",
+    // },
+    // {
+    //   id: 3,
+    //   text: "do code",
+    // },
   ],
+  isEditing: false,
+  singleTodo: {},
 };
 const todoSlice = createSlice({
-  name: "todo",
+  name: "todos",
   initialState,
   reducers: {
     userInput: (state, action) => {
@@ -26,14 +28,26 @@ const todoSlice = createSlice({
     },
     addTodo: (state, action) => {
       const newTodo = action.payload;
-      state.todos = [...state.todos, newTodo];
+      let todos = state.todos;
+      todos = [...todos, newTodo];
+      state.todos = todos;
       state.text = "";
     },
     removeTodo: (state, action) => {
       const { id } = action.payload;
-      state.todos = state.todos.filter((todo) => todo.id !== id);
+      state.todos = state.todos.filter((item) => item.id !== id);
+    },
+    editTodo: (state, action) => {
+      const id = action.payload;
+      // state.todos = [...state.todos, id];
+      // console.log(id);
+      // console.log(state.todos.find((item) => item.id !== id)?.text);
+      // state.text = state.todos.find((item) => item.id !== id)?.text;
+      state.singleTodo = state.todos.find((item) => item.id == id);
+      state.text = state.singleTodo.text;
+      state.isEditing = true;
     },
   },
 });
-export const { userInput, addTodo, removeTodo } = todoSlice.actions;
+export const { userInput, addTodo, removeTodo, editTodo } = todoSlice.actions;
 export default todoSlice.reducer;
